@@ -1,0 +1,2 @@
+# QTtrainingspace
+i learn QT
