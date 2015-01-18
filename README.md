@@ -1,2 +1,2 @@
 # QTtrainingspace
-i learn QT
+I learn QT
