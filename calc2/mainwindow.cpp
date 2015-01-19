@@ -125,3 +125,8 @@ void MainWindow::on_divisionButton_clicked()
 {
     ui->lineEdit->insert("/");
 }
+
+void MainWindow::on_dotButton_clicked()
+{
+    ui->lineEdit->insert(".");
+}
