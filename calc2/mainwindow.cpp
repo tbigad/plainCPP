@@ -53,6 +53,75 @@ void MainWindow::on_pushButton_clicked()
                 inLineEditDisplay=QString::number(firstPartAsDouble/secondPartAsDouble);
             }
         }
-        //inLineEditDisplay.append('+');
         ui->lineEdit->setText(inLineEditDisplay);
+}
+
+void MainWindow::on_numberButton_1_clicked()
+{
+    ui->lineEdit->insert("1");
+}
+
+void MainWindow::on_numberButton_2_clicked()
+{
+    ui->lineEdit->insert("2");
+}
+
+void MainWindow::on_numberButton_3_clicked()
+{
+    ui->lineEdit->insert("3");
+}
+
+void MainWindow::on_numberButton_4_clicked()
+{
+    ui->lineEdit->insert("4");
+}
+
+void MainWindow::on_numberButton_5_clicked()
+{
+    ui->lineEdit->insert("5");
+}
+
+void MainWindow::on_numberButton_6_clicked()
+{
+    ui->lineEdit->insert("6");
+}
+
+void MainWindow::on_numberButton_7_clicked()
+{
+    ui->lineEdit->insert("7");
+}
+
+void MainWindow::on_numberButton_8_clicked()
+{
+    ui->lineEdit->insert("8");
+}
+
+void MainWindow::on_numberButton_9_clicked()
+{
+    ui->lineEdit->insert("9");
+}
+
+void MainWindow::on_numberButton_0_clicked()
+{
+    ui->lineEdit->insert("0");
+}
+
+void MainWindow::on_plusButton_clicked()
+{
+    ui->lineEdit->insert("+");
+}
+
+void MainWindow::on_minusButton_clicked()
+{
+    ui->lineEdit->insert("-");
+}
+
+void MainWindow::on_multiplicationButton_clicked()
+{
+    ui->lineEdit->insert("*");
+}
+
+void MainWindow::on_divisionButton_clicked()
+{
+    ui->lineEdit->insert("/");
 }
