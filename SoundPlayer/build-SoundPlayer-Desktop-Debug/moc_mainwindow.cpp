@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../audioClass/mainwindow.h"
+#include "../SoundPlayer/mainwindow.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[8];
-    char stringdata[125];
+    QByteArrayData data[12];
+    char stringdata[205];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,18 +30,23 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10),
-QT_MOC_LITERAL(1, 11, 27),
-QT_MOC_LITERAL(2, 39, 0),
-QT_MOC_LITERAL(3, 40, 23),
-QT_MOC_LITERAL(4, 64, 24),
-QT_MOC_LITERAL(5, 89, 23),
-QT_MOC_LITERAL(6, 113, 6),
-QT_MOC_LITERAL(7, 120, 3)
+QT_MOC_LITERAL(1, 11, 24),
+QT_MOC_LITERAL(2, 36, 0),
+QT_MOC_LITERAL(3, 37, 5),
+QT_MOC_LITERAL(4, 43, 17),
+QT_MOC_LITERAL(5, 61, 18),
+QT_MOC_LITERAL(6, 80, 17),
+QT_MOC_LITERAL(7, 98, 17),
+QT_MOC_LITERAL(8, 116, 21),
+QT_MOC_LITERAL(9, 138, 24),
+QT_MOC_LITERAL(10, 163, 27),
+QT_MOC_LITERAL(11, 191, 12)
     },
-    "MainWindow\0on_openFileButton_1_clicked\0"
-    "\0on_playButton_1_clicked\0"
-    "on_pauseButton_1_clicked\0"
-    "on_stopButton_1_clicked\0kostyl\0vol\0"
+    "MainWindow\0volumeSliderValueChanged\0"
+    "\0value\0playButtonClicked\0pauseButtonClicked\0"
+    "stopButtonClicked\0muteButtonClicked\0"
+    "openFileWithAppending\0openFileWithoutAppending\0"
+    "createPlaylistFromDirectory\0itemSelected\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +56,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,18 +64,26 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x08,
-       3,    0,   40,    2, 0x08,
-       4,    0,   41,    2, 0x08,
-       5,    0,   42,    2, 0x08,
-       6,    1,   43,    2, 0x08,
+       1,    1,   59,    2, 0x08,
+       4,    0,   62,    2, 0x08,
+       5,    0,   63,    2, 0x08,
+       6,    0,   64,    2, 0x08,
+       7,    0,   65,    2, 0x08,
+       8,    0,   66,    2, 0x08,
+       9,    0,   67,    2, 0x08,
+      10,    0,   68,    2, 0x08,
+      11,    2,   69,    2, 0x08,
 
  // slots: parameters
+    QMetaType::Void, QMetaType::Int,    3,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
 
        0        // eod
 };
@@ -80,11 +93,15 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->on_openFileButton_1_clicked(); break;
-        case 1: _t->on_playButton_1_clicked(); break;
-        case 2: _t->on_pauseButton_1_clicked(); break;
-        case 3: _t->on_stopButton_1_clicked(); break;
-        case 4: _t->kostyl((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->volumeSliderValueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->playButtonClicked(); break;
+        case 2: _t->pauseButtonClicked(); break;
+        case 3: _t->stopButtonClicked(); break;
+        case 4: _t->muteButtonClicked(); break;
+        case 5: _t->openFileWithAppending(); break;
+        case 6: _t->openFileWithoutAppending(); break;
+        case 7: _t->createPlaylistFromDirectory(); break;
+        case 8: _t->itemSelected((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -115,13 +132,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 9;
     }
     return _id;
 }
