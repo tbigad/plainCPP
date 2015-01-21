@@ -6,11 +6,20 @@
 #include <QString>
 #include <QtCore>
 #include <QtGlobal>
+#include <QMediaPlayer>
+#include <QFile>
+#include <QAudioFormat>
+#include <QAudioDeviceInfo>
+#include <QAudioOutput>
 
 class classAudio
 {
+private:
+    QMediaPlayer *_player;
 public:
-    classAudio(QString audioPath);
+    classAudio(const QString &audioPath);
+    classAudio(const QString &audioPath, bool &playNow);
+    ~classAudio();
     void play();
     void stop();
     void pause();
