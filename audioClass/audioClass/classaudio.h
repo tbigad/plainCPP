@@ -4,6 +4,8 @@
 #include <QString>
 #include <QMediaPlayer>
 #include <QFile>
+#include <QList>
+#include <QMediaPlaylist>
 
 class classAudio
 {
@@ -13,6 +15,7 @@ public:
     classAudio();
     classAudio(const QString &audioPath);
     classAudio(const QString &audioPath, bool playNow);
+    classAudio(QMediaPlaylist list);
     ~classAudio();
     void setPath(const QString audioPath);
     void play();
@@ -20,6 +23,8 @@ public:
     void pause();
     void seek(qint64 &pos);
     void setVolume(int vol);
+    void playPlaylist(QList& audioContent, int index);
+
 };
 
 #endif // CLASSAUDIO_H

@@ -11,7 +11,6 @@ classAudio::classAudio(const QString& audioPath)
     _player = new QMediaPlayer();
     _player->setMedia(QUrl::fromLocalFile(audioPath));
 }
-
 classAudio::classAudio(const QString& audioPath, bool playNow)
 {
     _player = new QMediaPlayer();
@@ -55,6 +54,14 @@ void classAudio::setVolume(int vol)
     }
 }
 
+void classAudio::playPlaylist(QList& audioContent, int index)
+{
+    QMediaPlaylist playList;
+    playList.addMedia(audioContent);
+    playList.setCurrentIndex(index);
+    this->_player->setPlaylist(playList);
+    this->_player->play();
+}
 classAudio::~classAudio()
 {
    delete _player;
