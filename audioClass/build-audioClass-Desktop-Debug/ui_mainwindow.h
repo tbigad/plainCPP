@@ -20,6 +20,8 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -31,17 +33,16 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
+    QVBoxLayout *verticalLayout;
+    QSplitter *splitter;
     QLineEdit *filePath;
     QPushButton *openFileButton_1;
-    QPushButton *stopButton_1;
     QPushButton *playButton_1;
     QPushButton *pauseButton_1;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
+    QPushButton *stopButton_1;
     QSlider *volumeSlider;
-    QSlider *seekSlider;
+    QSpacerItem *verticalSpacer;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -51,69 +52,83 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(550, 321);
+        MainWindow->resize(472, 287);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayoutWidget = new QWidget(centralWidget);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(9, 0, 511, 91));
-        gridLayout = new QGridLayout(gridLayoutWidget);
+        sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
+        centralWidget->setSizePolicy(sizePolicy);
+        gridLayout = new QGridLayout(centralWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
-        gridLayout->setContentsMargins(50, 0, 0, 0);
-        filePath = new QLineEdit(gridLayoutWidget);
-        filePath->setObjectName(QStringLiteral("filePath"));
-        filePath->setReadOnly(true);
-
-        gridLayout->addWidget(filePath, 0, 0, 1, 1, Qt::AlignHCenter);
-
-        openFileButton_1 = new QPushButton(gridLayoutWidget);
-        openFileButton_1->setObjectName(QStringLiteral("openFileButton_1"));
-
-        gridLayout->addWidget(openFileButton_1, 0, 1, 1, 1);
-
-        stopButton_1 = new QPushButton(gridLayoutWidget);
-        stopButton_1->setObjectName(QStringLiteral("stopButton_1"));
-
-        gridLayout->addWidget(stopButton_1, 0, 4, 1, 1);
-
-        playButton_1 = new QPushButton(gridLayoutWidget);
-        playButton_1->setObjectName(QStringLiteral("playButton_1"));
-
-        gridLayout->addWidget(playButton_1, 0, 2, 1, 1);
-
-        pauseButton_1 = new QPushButton(gridLayoutWidget);
-        pauseButton_1->setObjectName(QStringLiteral("pauseButton_1"));
-
-        gridLayout->addWidget(pauseButton_1, 0, 3, 1, 1);
-
-        verticalLayoutWidget = new QWidget(centralWidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 100, 511, 151));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        volumeSlider = new QSlider(verticalLayoutWidget);
+        splitter = new QSplitter(centralWidget);
+        splitter->setObjectName(QStringLiteral("splitter"));
+        sizePolicy.setHeightForWidth(splitter->sizePolicy().hasHeightForWidth());
+        splitter->setSizePolicy(sizePolicy);
+        splitter->setOrientation(Qt::Horizontal);
+        filePath = new QLineEdit(splitter);
+        filePath->setObjectName(QStringLiteral("filePath"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(120);
+        sizePolicy1.setVerticalStretch(25);
+        sizePolicy1.setHeightForWidth(filePath->sizePolicy().hasHeightForWidth());
+        filePath->setSizePolicy(sizePolicy1);
+        filePath->setMaximumSize(QSize(850, 25));
+        filePath->setReadOnly(true);
+        splitter->addWidget(filePath);
+        openFileButton_1 = new QPushButton(splitter);
+        openFileButton_1->setObjectName(QStringLiteral("openFileButton_1"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(openFileButton_1->sizePolicy().hasHeightForWidth());
+        openFileButton_1->setSizePolicy(sizePolicy2);
+        splitter->addWidget(openFileButton_1);
+        playButton_1 = new QPushButton(splitter);
+        playButton_1->setObjectName(QStringLiteral("playButton_1"));
+        sizePolicy2.setHeightForWidth(playButton_1->sizePolicy().hasHeightForWidth());
+        playButton_1->setSizePolicy(sizePolicy2);
+        splitter->addWidget(playButton_1);
+        pauseButton_1 = new QPushButton(splitter);
+        pauseButton_1->setObjectName(QStringLiteral("pauseButton_1"));
+        sizePolicy2.setHeightForWidth(pauseButton_1->sizePolicy().hasHeightForWidth());
+        pauseButton_1->setSizePolicy(sizePolicy2);
+        splitter->addWidget(pauseButton_1);
+        stopButton_1 = new QPushButton(splitter);
+        stopButton_1->setObjectName(QStringLiteral("stopButton_1"));
+        sizePolicy2.setHeightForWidth(stopButton_1->sizePolicy().hasHeightForWidth());
+        stopButton_1->setSizePolicy(sizePolicy2);
+        splitter->addWidget(stopButton_1);
+
+        verticalLayout->addWidget(splitter);
+
+        volumeSlider = new QSlider(centralWidget);
         volumeSlider->setObjectName(QStringLiteral("volumeSlider"));
         volumeSlider->setMaximum(100);
         volumeSlider->setOrientation(Qt::Horizontal);
 
         verticalLayout->addWidget(volumeSlider);
 
-        seekSlider = new QSlider(verticalLayoutWidget);
-        seekSlider->setObjectName(QStringLiteral("seekSlider"));
-        seekSlider->setOrientation(Qt::Horizontal);
 
-        verticalLayout->addWidget(seekSlider);
+        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer, 1, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
+        volumeSlider->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 550, 19));
+        menuBar->setGeometry(QRect(0, 0, 472, 19));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -134,9 +149,9 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         openFileButton_1->setText(QApplication::translate("MainWindow", "...", 0));
-        stopButton_1->setText(QApplication::translate("MainWindow", "Stop", 0));
         playButton_1->setText(QApplication::translate("MainWindow", "Play", 0));
         pauseButton_1->setText(QApplication::translate("MainWindow", "Pause", 0));
+        stopButton_1->setText(QApplication::translate("MainWindow", "Stop", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
     } // retranslateUi
 
