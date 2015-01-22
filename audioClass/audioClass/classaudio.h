@@ -1,16 +1,9 @@
 #ifndef CLASSAUDIO_H
 #define CLASSAUDIO_H
 
-#include <QAudio>
-#include <QMultimedia>
 #include <QString>
-#include <QtCore>
-#include <QtGlobal>
 #include <QMediaPlayer>
 #include <QFile>
-#include <QAudioFormat>
-#include <QAudioDeviceInfo>
-#include <QAudioOutput>
 
 class classAudio
 {
