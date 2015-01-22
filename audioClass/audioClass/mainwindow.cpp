@@ -45,8 +45,3 @@ void MainWindow::kostyl(int vol)
 {
     _audio.setVolume(vol);
 }
-
-//void MainWindow::seekAudio(int pos)
-//{
-//    _audio.seek(_audio.);
-//}

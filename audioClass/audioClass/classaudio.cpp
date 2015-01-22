@@ -8,17 +8,16 @@ classAudio::classAudio()
 }
 classAudio::classAudio(const QString& audioPath)
 {
-    _player->setMedia(QUrl::fromLocalFile(audioPath));
     _player = new QMediaPlayer();
-   // _player->setVolume(50);
+    _player->setMedia(QUrl::fromLocalFile(audioPath));
 }
 
 classAudio::classAudio(const QString& audioPath, bool playNow)
 {
+    _player = new QMediaPlayer();
+    _player->setMedia(QUrl::fromLocalFile(audioPath));
     if(playNow)
     {
-    _player->setMedia(QUrl::fromLocalFile(audioPath));
-    _player->setVolume(50);
     _player->play();
     }
 }

@@ -26,7 +26,6 @@ public:
     void stop();
     void pause();
     void seek(qint64 &pos);
-   // qint64 sizeAudio();
     void setVolume(int vol);
 };
 
