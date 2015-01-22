@@ -22,6 +22,7 @@ private slots:
     void on_pauseButton_1_clicked();
     void on_stopButton_1_clicked();
     void kostyl(int vol);
+    void seekAudio(int pos);
 private:
     Ui::MainWindow *ui;
     classAudio _audio;

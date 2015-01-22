@@ -10,10 +10,10 @@ classAudio::classAudio(const QString& audioPath)
 {
     _player->setMedia(QUrl::fromLocalFile(audioPath));
     _player = new QMediaPlayer();
-    _player->setVolume(50);
+   // _player->setVolume(50);
 }
 
-classAudio::classAudio(const QString& audioPath, bool &playNow)
+classAudio::classAudio(const QString& audioPath, bool playNow)
 {
     if(playNow)
     {
@@ -52,7 +52,7 @@ void classAudio::setVolume(int vol)
 {
     if(vol<100)
     {
-        this->setVolume(vol);
+      this->_player->setVolume(vol);
     }
 }
 

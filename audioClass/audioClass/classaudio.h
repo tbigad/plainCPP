@@ -19,13 +19,14 @@ private:
 public:
     classAudio();
     classAudio(const QString &audioPath);
-    classAudio(const QString &audioPath, bool &playNow);
+    classAudio(const QString &audioPath, bool playNow);
     ~classAudio();
     void setPath(const QString audioPath);
     void play();
     void stop();
     void pause();
-    void seek(qint64& pos);
+    void seek(qint64 &pos);
+   // qint64 sizeAudio();
     void setVolume(int vol);
 };
 
