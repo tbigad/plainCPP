@@ -13,17 +13,17 @@ private:
     QMediaPlayer *_player;
 public:
     classAudio();
-    classAudio(const QString &audioPath);
-    classAudio(const QString &audioPath, bool playNow);
+    classAudio(const QString audioPath);
+    classAudio(const QString audioPath, bool playNow);
     classAudio(QMediaPlaylist list);
     ~classAudio();
     void setPath(const QString audioPath);
     void play();
     void stop();
     void pause();
-    void seek(qint64 &pos);
+    void seek(qint64 pos);
     void setVolume(int vol);
-    void playPlaylist(QList& audioContent, int index);
+//    void playPlaylist(QList<QString> pathAaudios, int index);
 
 };
 

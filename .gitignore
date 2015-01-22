@@ -21,4 +21,5 @@ _start_msvc.bat
 *.swp
 #QT 
 *.user
-*/Makefile
+*/Makefile*
+*/build-*

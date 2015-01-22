@@ -23,6 +23,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -43,6 +44,7 @@ public:
     QPushButton *stopButton_1;
     QSlider *volumeSlider;
     QSpacerItem *verticalSpacer;
+    QTableView *tableView;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -122,10 +124,15 @@ public:
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout->addItem(verticalSpacer, 1, 0, 1, 1);
+        gridLayout->addItem(verticalSpacer, 2, 0, 1, 1);
+
+        tableView = new QTableView(centralWidget);
+        tableView->setObjectName(QStringLiteral("tableView"));
+
+        gridLayout->addWidget(tableView, 1, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
-        volumeSlider->raise();
+        tableView->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 472, 19));

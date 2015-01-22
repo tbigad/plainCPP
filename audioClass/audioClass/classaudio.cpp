@@ -6,12 +6,12 @@ classAudio::classAudio()
     _player = new QMediaPlayer();
     _player->setVolume(50);
 }
-classAudio::classAudio(const QString& audioPath)
+classAudio::classAudio(const QString audioPath)
 {
     _player = new QMediaPlayer();
     _player->setMedia(QUrl::fromLocalFile(audioPath));
 }
-classAudio::classAudio(const QString& audioPath, bool playNow)
+classAudio::classAudio(const QString audioPath, bool playNow)
 {
     _player = new QMediaPlayer();
     _player->setMedia(QUrl::fromLocalFile(audioPath));
@@ -41,7 +41,7 @@ void classAudio::pause()
     this->_player->pause();
 }
 
-void classAudio::seek(qint64& pos)
+void classAudio::seek(qint64 pos)
 {
     this->_player->setPosition(pos);
 }
@@ -54,14 +54,20 @@ void classAudio::setVolume(int vol)
     }
 }
 
-void classAudio::playPlaylist(QList& audioContent, int index)
-{
-    QMediaPlaylist playList;
-    playList.addMedia(audioContent);
-    playList.setCurrentIndex(index);
-    this->_player->setPlaylist(playList);
-    this->_player->play();
-}
+//void classAudio::playPlaylist(QList<QString> pathAaudios, int index)
+//{
+//    QMediaPlaylist playList;
+//    QList<QString>::iterator it = pathAaudios.begin();
+//    while (it != pathAaudios.end())
+//    {
+//        playList.addMedia(QUrl::fromLocalFile(*it));
+//        this->_player->setPlaylist(&playList);
+//        ++it;
+//    }
+//    playList.setCurrentIndex(index);
+
+//    this->_player->play();
+//}
 classAudio::~classAudio()
 {
    delete _player;
