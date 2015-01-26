@@ -23,7 +23,7 @@ public:
     void pause();
     void seek(qint64 pos);
     void setVolume(int vol);
-//    void playPlaylist(QList<QString> pathAaudios, int index);
+    void playPlaylist(QStringList pathAaudios, int index);
 
 };
 

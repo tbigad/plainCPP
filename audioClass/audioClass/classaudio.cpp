@@ -54,20 +54,19 @@ void classAudio::setVolume(int vol)
     }
 }
 
-//void classAudio::playPlaylist(QList<QString> pathAaudios, int index)
-//{
-//    QMediaPlaylist playList;
-//    QList<QString>::iterator it = pathAaudios.begin();
-//    while (it != pathAaudios.end())
-//    {
-//        playList.addMedia(QUrl::fromLocalFile(*it));
-//        this->_player->setPlaylist(&playList);
-//        ++it;
-//    }
-//    playList.setCurrentIndex(index);
-
-//    this->_player->play();
-//}
+void classAudio::playPlaylist(QStringList pathAaudios, int index)
+{
+    QMediaPlaylist playList;
+    QStringList::iterator it = pathAaudios.begin();
+    while (it != pathAaudios.end())
+    {
+        playList.addMedia(QUrl::fromLocalFile(*it));
+        this->_player->setPlaylist(&playList);
+        ++it;
+    }
+    playList.setCurrentIndex(index);
+    this->_player->play();
+}
 classAudio::~classAudio()
 {
    delete _player;

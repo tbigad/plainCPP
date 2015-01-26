@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "classaudio.h"
+#include <QListWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -21,10 +22,17 @@ private slots:
     void on_playButton_1_clicked();
     void on_pauseButton_1_clicked();
     void on_stopButton_1_clicked();
-    void kostyl(int vol);
+    void setVolumeFromUI(int vol);
+    void setPathFromListWidget(QListWidgetItem *path);
+    void addFilesToPlayList();
+    void setCurrentItem(QListWidgetItem * item);
+    void on_rmFromListButton_clicked();
+
 private:
+    void removeFromPListWidget(QListWidgetItem *item);
     Ui::MainWindow *ui;
     classAudio _audio;
+    QStringList _files;
 };
 
 #endif // MAINWINDOW_H
