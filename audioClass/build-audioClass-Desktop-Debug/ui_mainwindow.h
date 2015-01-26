@@ -16,14 +16,14 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTableView>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -33,8 +33,10 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *openFiles;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
+    QListWidget *playList;
     QVBoxLayout *verticalLayout;
     QSplitter *splitter;
     QLineEdit *filePath;
@@ -43,9 +45,9 @@ public:
     QPushButton *pauseButton_1;
     QPushButton *stopButton_1;
     QSlider *volumeSlider;
-    QSpacerItem *verticalSpacer;
-    QTableView *tableView;
+    QPushButton *rmFromListButton;
     QMenuBar *menuBar;
+    QMenu *menuOpen_files;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QToolBar *toolBar;
@@ -54,12 +56,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(472, 287);
+        MainWindow->resize(588, 387);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
+        openFiles = new QAction(MainWindow);
+        openFiles->setObjectName(QStringLiteral("openFiles"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
@@ -68,6 +72,11 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        playList = new QListWidget(centralWidget);
+        playList->setObjectName(QStringLiteral("playList"));
+
+        gridLayout->addWidget(playList, 1, 0, 1, 1);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -115,6 +124,7 @@ public:
         volumeSlider = new QSlider(centralWidget);
         volumeSlider->setObjectName(QStringLiteral("volumeSlider"));
         volumeSlider->setMaximum(100);
+        volumeSlider->setValue(50);
         volumeSlider->setOrientation(Qt::Horizontal);
 
         verticalLayout->addWidget(volumeSlider);
@@ -122,20 +132,22 @@ public:
 
         gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        rmFromListButton = new QPushButton(centralWidget);
+        rmFromListButton->setObjectName(QStringLiteral("rmFromListButton"));
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(rmFromListButton->sizePolicy().hasHeightForWidth());
+        rmFromListButton->setSizePolicy(sizePolicy3);
 
-        gridLayout->addItem(verticalSpacer, 2, 0, 1, 1);
-
-        tableView = new QTableView(centralWidget);
-        tableView->setObjectName(QStringLiteral("tableView"));
-
-        gridLayout->addWidget(tableView, 1, 0, 1, 1);
+        gridLayout->addWidget(rmFromListButton, 2, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
-        tableView->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 472, 19));
+        menuBar->setGeometry(QRect(0, 0, 588, 19));
+        menuOpen_files = new QMenu(menuBar);
+        menuOpen_files->setObjectName(QStringLiteral("menuOpen_files"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -147,6 +159,9 @@ public:
         toolBar->setObjectName(QStringLiteral("toolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
 
+        menuBar->addAction(menuOpen_files->menuAction());
+        menuOpen_files->addAction(openFiles);
+
         retranslateUi(MainWindow);
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -155,10 +170,13 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        openFiles->setText(QApplication::translate("MainWindow", "open", 0));
         openFileButton_1->setText(QApplication::translate("MainWindow", "...", 0));
         playButton_1->setText(QApplication::translate("MainWindow", "Play", 0));
         pauseButton_1->setText(QApplication::translate("MainWindow", "Pause", 0));
         stopButton_1->setText(QApplication::translate("MainWindow", "Stop", 0));
+        rmFromListButton->setText(QApplication::translate("MainWindow", "Remove", 0));
+        menuOpen_files->setTitle(QApplication::translate("MainWindow", "add files", 0));
         toolBar->setWindowTitle(QApplication::translate("MainWindow", "toolBar", 0));
     } // retranslateUi
 

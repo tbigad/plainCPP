@@ -11,6 +11,10 @@ class classXmlEditor
 {
 public:
     classXmlEditor();
+    bool readFile(const QString &filePath);
+private:
+    QDomDocument _domDoc;
+    QFile _xmlFile;
 };
 
 #endif // CLASSXMLEDITOR_H
