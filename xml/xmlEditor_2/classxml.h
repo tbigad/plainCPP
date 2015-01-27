@@ -1,14 +1,14 @@
-#ifndef CLASSXMLEDITOR_H
-#define CLASSXMLEDITOR_H
+#ifndef CLASSXML_H
+#define CLASSXML_H
 
 #include <QtXml>
 #include <QString>
 
 
-class classXmlEditor
+class classXml
 {
 public:
-    classXmlEditor();
+    classXml();
     bool setFile(const QString &filePath);
     int headerItems(QDomDocument doc);
 private:
@@ -19,4 +19,4 @@ private:
     QFile _xmlFile;
 };
 
-#endif // CLASSXMLEDITOR_H
+#endif // CLASSXML_H

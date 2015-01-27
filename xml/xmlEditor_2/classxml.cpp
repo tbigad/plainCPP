@@ -1,10 +1,10 @@
-#include "classxmleditor.h"
+#include "classxml.h"
 
-classXmlEditor::classXmlEditor()
+classXml::classXml()
 {
 }
 
-bool classXmlEditor::setFile(const QString &filePath)
+bool classXml::setFile(const QString &filePath)
 {
     _xmlFile.setFileName(filePath);
     if(!_xmlFile.open(QFile::ReadOnly|QFile::Text))
@@ -19,8 +19,8 @@ bool classXmlEditor::setFile(const QString &filePath)
 
 }
 
-int classXmlEditor::headerItems(QDomDocument doc)
+int classXml::headerItems(QDomDocument doc)
 {
-    _domDoc.no
+    //_domDoc.no
 }
 
