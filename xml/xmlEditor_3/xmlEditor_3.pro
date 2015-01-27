@@ -1,22 +1,20 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-01-19T11:27:13
+# Project created by QtCreator 2015-01-28T01:25:41
 #
 #-------------------------------------------------
 
-
-QT       += core gui multimedia
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-TARGET = SoundPlayer
+
+TARGET = xmlEditor_3
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    soundplayer.cpp
+        mainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    soundplayer.h
+HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
