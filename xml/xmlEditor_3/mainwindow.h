@@ -23,7 +23,9 @@ public slots:
 private:
     Ui::MainWindow *ui;
     QString _filePath;
+    QFile _qFile;
     QDomDocument _domDoc;
+void printTree(QDomDocument doc);
 
 };
 
