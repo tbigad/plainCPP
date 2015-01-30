@@ -2,14 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
 #include <QStandardItem>
 #include <QStandardItemModel>
-#include <QAbstractItemModel>
-#include <QModelIndex>
-#include <QVariant>
 #include <QtXml>
-#include "TreeItem.h"
-#include "TreeModel.h"
 
 
 namespace Ui {
@@ -21,18 +17,25 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+
+
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 public slots:
-    void openFile();
-    void selectTreeItem(QModelIndex index);
-    void saveFile();
+    void startTree();
 
 private:
     Ui::MainWindow *ui;
-    void printNodes(QDomNode dNode, TreeItem *item);
-    void readXml(const QString &xmlContent);
-    TreeModel *model;
+
+    void insertFather(QString name);
+    void insertChildren(QString name);
+    void setItem(QStandardItemModel *model);
+    void preOrder(QDomNode dom, QStandardItemModel *model);
+
+    QStandardItem *item;
+    int nRow;
+    QStandardItemModel *model;
+    QDomDocument doc;
 };
 
 #endif // MAINWINDOW_H

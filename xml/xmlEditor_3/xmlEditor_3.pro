@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2015-01-29T18:01:29
+# Project created by QtCreator 2015-01-30T10:02:25
 #
 #-------------------------------------------------
 
@@ -8,17 +8,13 @@ QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = xmlEditor_2
+TARGET = xmlEditor_3
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp\
-        TreeItem.cpp \
-        TreeModel.cpp \
+        mainwindow.cpp
 
-HEADERS  += mainwindow.h\
-            TreeItem.h \
-            TreeModel.h \
+HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
