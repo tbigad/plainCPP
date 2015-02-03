@@ -30,9 +30,6 @@ class TreeModel : public QStandardItemModel
 {
     Q_OBJECT
 
-    signals:
-        void modelModified();
-
     public:
         explicit TreeModel(QObject *parent = 0);
         void fillModel(const QString &xmlContent);
@@ -41,8 +38,6 @@ class TreeModel : public QStandardItemModel
         QList<TreeItem*> getFilteredItemList(const QString &textToFind, const QStringList &filters);
         QModelIndex getIndexByUID(const QString &uuid);
         TreeItem * itemFromIndex(const QModelIndex &index) const;
-
-    public slots:
         void saveNewData(QWidget *widgetContainer, const QModelIndex &parentIndex);
 
     private:

@@ -27,6 +27,7 @@ public slots:
     void openFile();
     void selectTreeItem(QModelIndex index);
     void saveFile();
+    void changeItem(int row, int col);
 
 private:
     Ui::MainWindow *ui;

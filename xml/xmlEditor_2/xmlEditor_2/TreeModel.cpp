@@ -138,8 +138,6 @@ void TreeModel::saveNewData(QWidget *widgetContainer, const QModelIndex &parentI
 				}
 			}
 		}
-
-		emit modelModified();
 	}
 }
 

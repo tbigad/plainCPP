@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->Open_file, SIGNAL(triggered()), this, SLOT(openFile()));
     connect(ui->treeView, SIGNAL(clicked(QModelIndex)), this, SLOT(selectTreeItem(QModelIndex)));
     connect(ui->Save_file, SIGNAL(triggered()),this, SLOT(saveFile()));
+    connect(ui->tableWidget, SIGNAL(cellChanged(int,int)), this, SLOT(changeItem(int,int)));
 }
 
 MainWindow::~MainWindow()
@@ -38,6 +39,8 @@ void MainWindow::saveFile()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save File"),"/home/user1/Documents", tr("XML (*.xml)"));
     model->writeXml(filePath);
+    ui->tableWidget->clear();
+    ui->treeView->reset();
 }
 
 void MainWindow::selectTreeItem(QModelIndex index)
@@ -66,3 +69,8 @@ void MainWindow::selectTreeItem(QModelIndex index)
          }
     }
  }
+
+void MainWindow::changeItem(int row, int col)
+{
+     model->itemFromIndex(ui->treeView->currentIndex())->child(row)->setValue(ui->tableWidget->item(row,col)->text());
+}
