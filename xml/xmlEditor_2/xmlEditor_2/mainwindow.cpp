@@ -45,28 +45,49 @@ void MainWindow::saveFile()
 
 void MainWindow::selectTreeItem(QModelIndex index)
 {
+    int i=0;
     ui->treeView->setCurrentIndex(index);
     ui->tableWidget->clear();
+    while(ui->tableWidget->columnCount()>0)
+    {
+        ui->tableWidget->removeColumn(0);
+    }
+    ui->tableWidget->verticalHeader()->hide();
+    ui->tableWidget->horizontalHeader()->hide();
     TreeItem *selected = model->itemFromIndex(ui->treeView->currentIndex());
-
     if(selected->hasChildren())
     {
+        while (!selected->child(i)->getValue().isEmpty())
+        {
+          qDebug() << i;
+          i++;
+          if (i >= selected->childCount())
+          {
+              break;
+          }
+        }
+        ui->tableWidget->setRowCount(i);
+        ui->tableWidget->setColumnCount(2);
         for(int i=0;i<selected->childCount(); i++)
         {
             QTableWidgetItem *valueTWI = new QTableWidgetItem;
             valueTWI->setText(selected->child(i)->getValue());
-           if(valueTWI->text().size()>0)
-           {
-            QTableWidgetItem *textTWI = new QTableWidgetItem;
-            textTWI->setText(selected->child(i)->text());
-            textTWI->setFlags(Qt::ItemIsEnabled);
-            qDebug() << textTWI->text() << " "<< valueTWI->text();
-            ui->tableWidget->setRowCount(selected->childCount());
-            ui->tableWidget->setColumnCount(2);
-            ui->tableWidget->setItem(i,0,textTWI);
-            ui->tableWidget->setItem(i,1,valueTWI);
+            if(valueTWI->text().size()>0)
+            {
+             headerList << "Varible" << "Value";
+             ui->tableWidget->setHorizontalHeaderLabels(headerList);
+             ui->tableWidget->horizontalHeader()->show();
+             QTableWidgetItem *textTWI = new QTableWidgetItem;
+             textTWI->setText(selected->child(i)->text());
+             textTWI->setFlags(Qt::ItemIsEnabled);
+             qDebug() << textTWI->text() << " "<< valueTWI->text();
+
+
+             ui->tableWidget->setItem(i,0,textTWI);
+             ui->tableWidget->setItem(i,1,valueTWI);
            }
          }
+
     }
  }
 
@@ -74,3 +95,17 @@ void MainWindow::changeItem(int row, int col)
 {
      model->itemFromIndex(ui->treeView->currentIndex())->child(row)->setValue(ui->tableWidget->item(row,col)->text());
 }
+
+/*void MainWindow::setRowCol(int row, int col)
+{
+    if(row>0)
+    {
+    ui->tableWidget->setRowCount(row);
+    ui->tableWidget->setColumnCount(col);
+    QTableWidgetItem header;
+    header.setText("Text");
+    ui->tableWidget->setHorizontalHeaderItem(0, &header);
+    header.setText("Value");
+    ui->tableWidget->setHorizontalHeaderItem(1, &header);
+    }
+}*/

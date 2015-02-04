@@ -10,6 +10,7 @@
 #include <QtXml>
 #include "TreeItem.h"
 #include "TreeModel.h"
+#include <QStringList>
 
 
 namespace Ui {
@@ -34,6 +35,8 @@ private:
     void printNodes(QDomNode dNode, TreeItem *item);
     void readXml(const QString &xmlContent);
     TreeModel *model;
+    void setRowCol(int row, int col);
+    QStringList headerList;
 };
 
 #endif // MAINWINDOW_H
