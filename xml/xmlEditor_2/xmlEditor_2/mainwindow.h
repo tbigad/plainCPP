@@ -34,9 +34,12 @@ private:
     Ui::MainWindow *ui;
     void printNodes(QDomNode dNode, TreeItem *item);
     void readXml(const QString &xmlContent);
+    void openHelp();
     TreeModel *model;
+    TreeModel *modelHelp;
     void setRowCol(int row, int col);
-    QStringList headerList;
+    QDomDocument *help;
+    void printHelp(TreeItem *itemForHelp);
 };
 
 #endif // MAINWINDOW_H

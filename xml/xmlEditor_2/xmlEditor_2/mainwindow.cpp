@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->treeView, SIGNAL(clicked(QModelIndex)), this, SLOT(selectTreeItem(QModelIndex)));
     connect(ui->Save_file, SIGNAL(triggered()),this, SLOT(saveFile()));
     connect(ui->tableWidget, SIGNAL(cellChanged(int,int)), this, SLOT(changeItem(int,int)));
+    openHelp();
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +56,7 @@ void MainWindow::selectTreeItem(QModelIndex index)
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->horizontalHeader()->hide();
     TreeItem *selected = model->itemFromIndex(ui->treeView->currentIndex());
+    printHelp(selected);
     if(selected->hasChildren())
     {
         while (!selected->child(i)->getValue().isEmpty())
@@ -74,6 +76,7 @@ void MainWindow::selectTreeItem(QModelIndex index)
             valueTWI->setText(selected->child(i)->getValue());
             if(valueTWI->text().size()>0)
             {
+             QStringList headerList;
              headerList << "Varible" << "Value";
              ui->tableWidget->setHorizontalHeaderLabels(headerList);
              ui->tableWidget->horizontalHeader()->show();
@@ -93,19 +96,35 @@ void MainWindow::selectTreeItem(QModelIndex index)
 
 void MainWindow::changeItem(int row, int col)
 {
-     model->itemFromIndex(ui->treeView->currentIndex())->child(row)->setValue(ui->tableWidget->item(row,col)->text());
+    model->itemFromIndex(ui->treeView->currentIndex())->child(row)->setValue(ui->tableWidget->item(row,col)->text());
 }
 
-/*void MainWindow::setRowCol(int row, int col)
+void MainWindow::openHelp()
 {
-    if(row>0)
+    QString filePath = "../xmlExamples/help.xml";
+    help = new QDomDocument;
+    QFile file(filePath);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            if(!help->setContent(&file))
+            {qDebug()<< "can't setContent";}
+            file.close();
+        }else
+        {
+            file.close();
+            qDebug() << "Can't open file";
+        }
+
+}
+
+void MainWindow::printHelp(TreeItem *itemForHelp)
+{
+    QDomNodeList list;
+    for (int i=0;list.count()<i;i++)
     {
-    ui->tableWidget->setRowCount(row);
-    ui->tableWidget->setColumnCount(col);
-    QTableWidgetItem header;
-    header.setText("Text");
-    ui->tableWidget->setHorizontalHeaderItem(0, &header);
-    header.setText("Value");
-    ui->tableWidget->setHorizontalHeaderItem(1, &header);
+        qDebug()<< list.item(i).toElement().text() << " in Help";
+        ui->listWidget->addItem(list.item(i).toElement().text());
     }
-}*/
+}
+
+
