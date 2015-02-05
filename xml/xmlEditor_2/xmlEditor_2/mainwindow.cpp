@@ -57,6 +57,37 @@ void MainWindow::selectTreeItem(QModelIndex index)
     ui->tableWidget->horizontalHeader()->hide();
     TreeItem *selected = model->itemFromIndex(ui->treeView->currentIndex());
     printHelp(selected);
+
+
+    if(!selected->hasChildren())
+    {
+        QTableWidgetItem *valueTWI = new QTableWidgetItem;
+        QTableWidgetItem *textTWI = new QTableWidgetItem;
+        qDebug() << selected->getValue() << " " << selected->text() << " in !selected->hasChildren()";
+        if(!selected->getValue().isEmpty())
+        {
+
+          ui->tableWidget->setRowCount(1);
+          ui->tableWidget->setColumnCount(2);
+
+         QStringList headerList;
+         headerList << "Varible" << "Value";
+         ui->tableWidget->setHorizontalHeaderLabels(headerList);
+         ui->tableWidget->horizontalHeader()->show();
+
+         valueTWI->setText(selected->getValue());
+         textTWI->setText(selected->text());
+         textTWI->setFlags(Qt::ItemIsEnabled);
+         qDebug() << textTWI->text() << " "<< valueTWI->text() << " in selectTreeItem in !selected->hasChildren()";
+         ui->tableWidget->setItem(0,0,textTWI);
+         ui->tableWidget->setItem(0,1,valueTWI);
+        }/*else
+        {
+            delete valueTWI;
+            delete textTWI;
+        }*/
+    }
+
     if(selected->hasChildren())
     {
         while (!selected->child(i)->getValue().isEmpty())
@@ -83,8 +114,7 @@ void MainWindow::selectTreeItem(QModelIndex index)
              QTableWidgetItem *textTWI = new QTableWidgetItem;
              textTWI->setText(selected->child(i)->text());
              textTWI->setFlags(Qt::ItemIsEnabled);
-             qDebug() << textTWI->text() << " "<< valueTWI->text();
-
+             qDebug() << textTWI->text() << " "<< valueTWI->text() << " in selectTreeItem";
 
              ui->tableWidget->setItem(i,0,textTWI);
              ui->tableWidget->setItem(i,1,valueTWI);
@@ -96,7 +126,15 @@ void MainWindow::selectTreeItem(QModelIndex index)
 
 void MainWindow::changeItem(int row, int col)
 {
-    model->itemFromIndex(ui->treeView->currentIndex())->child(row)->setValue(ui->tableWidget->item(row,col)->text());
+    if(model->itemFromIndex(ui->treeView->currentIndex())->hasChildren())
+    {
+        model->itemFromIndex(ui->treeView->currentIndex())->child(row)->setValue(ui->tableWidget->item(row,col)->text());
+    }
+    else {
+       model->itemFromIndex(ui->treeView->currentIndex())->setValue(ui->tableWidget->item(row,col)->text());
+    }
+
+
 }
 
 void MainWindow::openHelp()
@@ -104,27 +142,39 @@ void MainWindow::openHelp()
     QString filePath = "../xmlExamples/help.xml";
     help = new QDomDocument;
     QFile file(filePath);
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        if (file.open(QIODevice::ReadOnly))
         {
-            if(!help->setContent(&file))
-            {qDebug()<< "can't setContent";}
-            file.close();
-        }else
+        if(!help->setContent(&file))
         {
+            qDebug()<< "can't setContent";
             file.close();
-            qDebug() << "Can't open file";
         }
-
+ file.close();
+        }
 }
 
 void MainWindow::printHelp(TreeItem *itemForHelp)
 {
-    QDomNodeList list;
-    for (int i=0;list.count()<i;i++)
+    ui->textBrowser->clear();
+    qDebug()<< itemForHelp->text() << " in printHelp";
+
+    QDomElement helpElement = help->documentElement();
+    QDomNode n = helpElement.firstChild();
+    while(!n.isNull())
     {
-        qDebug()<< list.item(i).toElement().text() << " in Help";
-        ui->listWidget->addItem(list.item(i).toElement().text());
+        QDomElement e = n.toElement(); // try to convert the node to an element.
+        if(!e.isNull())
+        {
+            if(e.tagName()==itemForHelp->text())
+            {
+                ui->textBrowser->setText(e.text());
+            }
+        }
+        n = n.nextSibling();
     }
 }
+
+
+
 
 
