@@ -1,27 +1,66 @@
-ompiled Object files
-*.slo
-*.lo
-*.o
-# Compiled Dynamic libraries
-*.so
-*.dylib
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-# Visual Studio Temporary files
-~$*
-# CMake Framework Default Folder Names
-_build_*_*
-_start_msvc.bat
-#LibreOffice tmp file
-.~*
-#vim tmp files
-*~
-*.swp
-#QT 
+CVS
+.#*
+
+.hg
+.hgignore
+
+obj
+TestResults
+*.pbxuser
+*.perspectivev3
+.DS_Store
+
+*.old
+*.log
+*.out
+*.cache
+
+*.deb
+
+*.git.old*
+Makefile*
+*.*pro*.user*
+*.[oa]
+*.so*
+*.dll
+*.lib
+*.exp
+*.exe
+*.out
+
+#vc files
+*.def
+*.dep
+*.idb
+*.layout
+*.manifest
+*.ncb
+*.obj
+*.pdb
+*.suo
 *.user
-*/Makefile*
-*/build-*
-*/build/*
-*build-*
+*.tlh
+*.tli
+
+
+#intel compiler
+*.ilk
+
+#dirs
+.moc
+.rcc
+.obj
+/bin*
+/lib*
+Debug
+Release
+*.Debug
+*.Release
+
+*.fuse*
+
+#qt
+*.prl
+*moc_*
+*.moc
+*qrc_res.cpp
