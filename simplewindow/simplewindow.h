@@ -5,17 +5,15 @@
 
 class QMouseEvent;
 
-class SimpleWindow: QWidget
+class SimpleWindow: public QWidget
 {
-  // Q_OBJECT
 public:
-    SimpleWindow();
+    SimpleWindow(QWidget *parent = 0);
    ~SimpleWindow();
 private:
     QWidget *wg;
 protected:
     void mousePressEvent(QMouseEvent *event);
-
 };
 
 #endif // SIMPLEWINDOW_H

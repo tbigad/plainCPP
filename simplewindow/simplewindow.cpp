@@ -1,24 +1,18 @@
 #include "simplewindow.h"
 #include <QDebug>
 
-
-SimpleWindow::SimpleWindow()
+SimpleWindow::SimpleWindow(QWidget *parent)
+    :QWidget(parent, Qt::Window|Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint)
 {
-    wg = new QWidget;
-    wg->setWindowFlags(Qt::Window|Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint);
-    wg->show();
-    qDebug()<<"widget Created";
 }
 
 SimpleWindow::~SimpleWindow()
 {
-    delete wg;
 }
 
 void SimpleWindow::mousePressEvent(QMouseEvent *event)
 {
     QWidget::mousePressEvent(event);
     if(event->button() == Qt::LeftButton)
-        qDebug()<<"pressed!";
-
+        qDebug()<<"LMB pressed!";
 }

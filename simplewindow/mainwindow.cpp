@@ -16,5 +16,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    SimpleWindow *win = new SimpleWindow;
+    SimpleWindow *win = new SimpleWindow();
+    win->show();
 }
