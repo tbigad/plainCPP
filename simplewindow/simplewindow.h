@@ -11,9 +11,11 @@ public:
     SimpleWindow(QWidget *parent = 0);
    ~SimpleWindow();
 private:
-    QWidget *wg;
+    QPoint _gmp;//Global Mouse Point
+
 protected:
     void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 };
 
 #endif // SIMPLEWINDOW_H
