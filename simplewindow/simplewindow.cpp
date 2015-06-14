@@ -15,10 +15,10 @@ void SimpleWindow::mousePressEvent(QMouseEvent *event)
     QWidget::mousePressEvent(event);
     if(event->button() == Qt::LeftButton)
         qDebug()<<"LMB pressed!";
+        _gmp = event->globalPos();
     if(event->button() == Qt::RightButton)
     {
         qDebug()<<"RMB pressed!";
-        _gmp = event->globalPos();
     }
 }
 
