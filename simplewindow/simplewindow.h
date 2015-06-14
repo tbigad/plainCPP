@@ -11,7 +11,7 @@ public:
     SimpleWindow(QWidget *parent = 0);
    ~SimpleWindow();
 private:
-    QPoint _gmp;//Global Mouse Point
+    QPoint _wmp;//Widget Mouse Point
 
 protected:
     void mousePressEvent(QMouseEvent *event);

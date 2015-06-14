@@ -15,7 +15,7 @@ void SimpleWindow::mousePressEvent(QMouseEvent *event)
     QWidget::mousePressEvent(event);
     if(event->button() == Qt::LeftButton)
         qDebug()<<"LMB pressed!";
-        _gmp = event->globalPos();
+        _wmp = event->pos();
     if(event->button() == Qt::RightButton)
     {
         qDebug()<<"RMB pressed!";
@@ -26,8 +26,8 @@ void SimpleWindow::mouseMoveEvent(QMouseEvent *event)
 {
     if(event->buttons() & Qt::LeftButton)
         {
-        this->move(mapToParent(event->pos()-_gmp));
-        qDebug()<<"x: "<< _gmp.x();
-        qDebug()<<"y: "<< _gmp.y();
+        this->move(event->globalPos()-_wmp);
+        qDebug()<<"x: "<< event->globalPos().x();
+        qDebug()<<"y: "<< event->globalPos().y();
         }
 }
