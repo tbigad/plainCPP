@@ -12,6 +12,7 @@ public:
    ~SimpleWindow();
 private:
     QPoint _wmp;//Widget Mouse Point
+    QPoint _cmp;//Current Mouse Point
 
 protected:
     void mousePressEvent(QMouseEvent *event);
