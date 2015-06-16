@@ -25,6 +25,8 @@ void SimpleWindow::mousePressEvent(QMouseEvent *event)
         _wmp = event->pos();
         qDebug()<<"RMB pressed!";
     }
+
+
 }
 
 void SimpleWindow::mouseMoveEvent(QMouseEvent *event)
@@ -47,20 +49,28 @@ void SimpleWindow::mouseMoveEvent(QMouseEvent *event)
         this->setCursor(Qt::SizeHorCursor);
     }
 
-    if(_cmp.y() == this->geometry().top())
+    if((_cmp.y() == this->geometry().top()) < 5)
     {
         qDebug()<<"On TOP Border!!!!";
         this->setCursor(Qt::SizeVerCursor);
     }
-    if(_cmp.x() == this->geometry().right())
+    if((_cmp.x() == this->geometry().right()) < 5)
     {
         qDebug()<<"On RIGHT Border!!!!";
         this->setCursor(Qt::SizeHorCursor);
     }
-    if(_cmp.y() == this->geometry().bottom())
+    if((_cmp.y() == this->geometry().bottom()) < 5)
     {
         qDebug()<<"On BOTTOM Border!!!!";
         this->setCursor(Qt::SizeVerCursor);
     }
 
+    if(event->button() == Qt::LeftButton)
+    {
+        if((_cmp.x() - this->geometry().left()) < 5)
+        {
+           qDebug()<<"Ready to resize";
+           this->resize(_cmp.x(), this->geometry().y());
+        }
+    }
 }
