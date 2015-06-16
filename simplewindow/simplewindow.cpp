@@ -1,5 +1,6 @@
 #include "simplewindow.h"
 #include <QDebug>
+#include <QRect>
 
 SimpleWindow::SimpleWindow(QWidget *parent)
     :QWidget(parent, Qt::Window|Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint)
@@ -39,7 +40,8 @@ void SimpleWindow::mouseMoveEvent(QMouseEvent *event)
         this->setCursor(Qt::ClosedHandCursor);
         this->move(event->globalPos()-_wmp);
         }
-    if(_cmp.x() == this->geometry().left())
+
+    if((_cmp.x() - this->geometry().left()) < 5)
     {
         qDebug()<<"On LEFT Border!!!!";
         this->setCursor(Qt::SizeHorCursor);
