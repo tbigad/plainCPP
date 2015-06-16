@@ -49,17 +49,17 @@ void SimpleWindow::mouseMoveEvent(QMouseEvent *event)
         this->setCursor(Qt::SizeHorCursor);
     }
 
-    if((_cmp.y() == this->geometry().top()) < 5)
+    if((_cmp.y() - this->geometry().top()) < 5)
     {
         qDebug()<<"On TOP Border!!!!";
         this->setCursor(Qt::SizeVerCursor);
     }
-    if((_cmp.x() == this->geometry().right()) < 5)
+    if((_cmp.x() + this->geometry().right()) < 5)
     {
         qDebug()<<"On RIGHT Border!!!!";
         this->setCursor(Qt::SizeHorCursor);
     }
-    if((_cmp.y() == this->geometry().bottom()) < 5)
+    if((_cmp.y() + this->geometry().bottom()) < 5)
     {
         qDebug()<<"On BOTTOM Border!!!!";
         this->setCursor(Qt::SizeVerCursor);
