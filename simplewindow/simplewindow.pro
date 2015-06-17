@@ -14,9 +14,11 @@ CONFIG += c++14
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    simplewindow.cpp
+    simplewindow.cpp \
+    FramelessHelper.cpp
 
 HEADERS  += mainwindow.h \
-    simplewindow.h
+    simplewindow.h \
+    FramelessHelper.h
 
 FORMS    += mainwindow.ui
