@@ -14,9 +14,12 @@ private:
     QPoint _wmp;//Widget Mouse Point
     QPoint _cmp;//Current Mouse Point
 
+    QPoint m_dragPosition;
+
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 };
 
 #endif // SIMPLEWINDOW_H
