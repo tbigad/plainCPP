@@ -15,11 +15,13 @@ private:
     QPoint _cmp;//Current Mouse Point
 
     QPoint m_dragPosition;
+    QPoint _current, _initial;
 
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
+    void updateGeometry();
 };
 
 #endif // SIMPLEWINDOW_H
