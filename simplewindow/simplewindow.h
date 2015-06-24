@@ -3,8 +3,10 @@
 
 #include "FramelessHelper.h"
 #include <QWidget>
+#include <QMouseEvent>
 
-class QMouseEvent;
+
+//class QMouseEvent;
 
 class SimpleWindow: public QWidget
 {
@@ -13,7 +15,15 @@ public:
    ~SimpleWindow();
 private:
     FramelessHelper* mFrameless;
+    void setSizeWidget(QPoint moveMousePos);
+
+    QPoint mStartDragPos;
+    bool mLeftBtnPressed;
+    bool widgetCreated;
 protected:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 };
 
 #endif // SIMPLEWINDOW_H
