@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete win;
+    //delete win;
     delete ui;
 }
 
@@ -25,6 +25,7 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     for(int i = 0; i< sWinVec.size(); i++)
     {
         sWinVec[i].data()->close();
+        sWinVec[i].clear();
     }
     sWinVec.clear();
     event->accept();

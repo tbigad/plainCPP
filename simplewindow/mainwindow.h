@@ -25,7 +25,7 @@ private:
     QVector<QSharedPointer<SimpleWindow> > sWinVec;
 
     Ui::MainWindow *ui;
-    SimpleWindow *win;
+    //SimpleWindow *win;
 
 };
 

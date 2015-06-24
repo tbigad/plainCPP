@@ -5,11 +5,13 @@ SimpleWindow::SimpleWindow(QWidget *parent)
     : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint),
       mFrameless(new FramelessHelper)
 {
+    show();
     showFullScreen();
     setWindowOpacity(0.1);
     setCursor(Qt::CrossCursor);
     widgetCreated = false;
     flags = windowFlags();
+    flags |= Qt::CustomizeWindowHint;
     flags |= Qt::FramelessWindowHint;
     flags |= Qt::WindowStaysOnTopHint;
 }
