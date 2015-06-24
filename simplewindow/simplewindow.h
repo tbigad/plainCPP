@@ -20,6 +20,7 @@ private:
     QPoint mStartDragPos;
     bool mLeftBtnPressed;
     bool widgetCreated;
+    Qt::WindowFlags flags;
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);

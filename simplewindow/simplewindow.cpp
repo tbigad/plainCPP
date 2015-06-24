@@ -5,11 +5,13 @@ SimpleWindow::SimpleWindow(QWidget *parent)
     : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint),
       mFrameless(new FramelessHelper)
 {
-    setMouseTracking(true);
     showFullScreen();
     setWindowOpacity(0.1);
     setCursor(Qt::CrossCursor);
     widgetCreated = false;
+    flags = windowFlags();
+    flags |= Qt::FramelessWindowHint;
+    flags |= Qt::WindowStaysOnTopHint;
 }
 
 SimpleWindow::~SimpleWindow()
@@ -18,13 +20,18 @@ SimpleWindow::~SimpleWindow()
 
 void SimpleWindow::mousePressEvent(QMouseEvent *event)
 {
-    if(widgetCreated)
+    switch (event->button()) {
+    case Qt::LeftButton:
+        if(widgetCreated)
+            return;
+        mStartDragPos = event->globalPos();
+        mLeftBtnPressed = true;
+        break;
+    case Qt::RightButton:
+        this->close();
+        break;
+    default:
         return;
-
-    if(event->button() == Qt::LeftButton)
-    {
-    mStartDragPos = event->globalPos();
-    mLeftBtnPressed = true;
     }
 }
 
@@ -39,31 +46,33 @@ void SimpleWindow::mouseMoveEvent(QMouseEvent *event)
 
 void SimpleWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    if(widgetCreated)
+    if(widgetCreated){
         return;
+        mLeftBtnPressed = false;
+    }
 
-//    if((this->size().height()< 10) && (this->size().width()< 10) )
-//    {
-//        this->showMaximized();
-//        return;
-//    }
+    if((this->size().height()< 10) && (this->size().width()< 10) )
+    {
+        this->showMaximized();
+        return;
+    }
 
     if (!(this->isFullScreen() || this->isMaximized())){
+        setWindowFlags(flags);
         mFrameless->activateOn(this);
         mFrameless->setWidgetMovable(true);
         mFrameless->setWidgetResizable(true);
-
         widgetCreated = true;
     }
 }
 
 void SimpleWindow::setSizeWidget(QPoint moveMousePos)
 {
-    if(widgetCreated)
+    if(widgetCreated && mLeftBtnPressed)
         return;
 
-    setWindowOpacity(1);
-
+    setWindowOpacity(0.5);
+    setWindowFlags(flags);
     QPoint topLeft, bottonRight;
     topLeft = mStartDragPos;
     bottonRight = moveMousePos;
@@ -80,4 +89,5 @@ void SimpleWindow::setSizeWidget(QPoint moveMousePos)
     QRect initRect(topLeft,bottonRight);
     //qDebug()<<"x: "<< mStartDragPos.x()<<"y: "<< mStartDragPos.y() <<"x: "<<globalMousePos.x() <<"y: "<<globalMousePos.y();
     setGeometry(initRect);
+    setWindowFlags(flags);
 }

@@ -122,7 +122,9 @@ WidgetData::WidgetData( FramelessHelperImpl* _d, QWidget* topLevelWidget )
   mWidget = topLevelWidget;
   mLeftButtonPressed = false;
   mCursorShapeChanged = false;
-
+  mWidget->setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
+  mWidget->show();
+  mWidget->setWindowOpacity(0.5);
   mWindowFlags = mWidget->windowFlags();
 
   //---from Qt docs of setWindowFlags()----

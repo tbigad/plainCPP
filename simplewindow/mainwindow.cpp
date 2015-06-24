@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "simplewindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,11 +10,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete win;
     delete ui;
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    SimpleWindow *win = new SimpleWindow();
-    win->show();
+    win = new SimpleWindow();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    win->close();
+    event->accept();
 }
