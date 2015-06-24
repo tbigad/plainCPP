@@ -16,10 +16,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    win = new SimpleWindow();
+    sWinVec.push_back(QSharedPointer<SimpleWindow>(new SimpleWindow));
+  //  win = new SimpleWindow();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-    win->close();
+    //win->close();
+    for(int i = 0; i< sWinVec.size(); i++)
+    {
+        sWinVec[i].data()->close();
+    }
+    sWinVec.clear();
     event->accept();
 }

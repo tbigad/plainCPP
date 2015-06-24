@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVector>
 #include "simplewindow.h"
 
 namespace Ui {
@@ -21,8 +22,11 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    QVector<QSharedPointer<SimpleWindow> > sWinVec;
+
     Ui::MainWindow *ui;
     SimpleWindow *win;
+
 };
 
 #endif // MAINWINDOW_H
