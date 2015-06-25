@@ -15,10 +15,12 @@ CONFIG += c++14
 SOURCES += main.cpp\
         mainwindow.cpp \
     simplewindow.cpp \
-    FramelessHelper.cpp
+    FramelessHelper.cpp \
+    FullscreenHelper.cpp
 
 HEADERS  += mainwindow.h \
     simplewindow.h \
-    FramelessHelper.h
+    FramelessHelper.h \
+    FullscreenHelper.h
 
 FORMS    += mainwindow.ui

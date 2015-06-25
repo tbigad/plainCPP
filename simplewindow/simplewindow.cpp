@@ -1,19 +1,15 @@
 #include "simplewindow.h"
+#include "fullscreenhelper.h"
 #include <QDebug>
 
 SimpleWindow::SimpleWindow(QWidget *parent)
     : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint),
       mFrameless(new FramelessHelper)
 {
-    show();
-    showFullScreen();
-    setWindowOpacity(0.1);
+    FullScreenHelper::MaximizeOnVirtualScreen(this);
+    setWindowOpacity(0.05);
     setCursor(Qt::CrossCursor);
     widgetCreated = false;
-    flags = windowFlags();
-    flags |= Qt::CustomizeWindowHint;
-    flags |= Qt::FramelessWindowHint;
-    flags |= Qt::WindowStaysOnTopHint;
 }
 
 SimpleWindow::~SimpleWindow()
@@ -60,7 +56,6 @@ void SimpleWindow::mouseReleaseEvent(QMouseEvent *event)
     }
 
     if (!(this->isFullScreen() || this->isMaximized())){
-        setWindowFlags(flags);
         mFrameless->activateOn(this);
         mFrameless->setWidgetMovable(true);
         mFrameless->setWidgetResizable(true);
@@ -74,7 +69,6 @@ void SimpleWindow::setSizeWidget(QPoint moveMousePos)
         return;
 
     setWindowOpacity(0.5);
-    setWindowFlags(flags);
     QPoint topLeft, bottonRight;
     topLeft = mStartDragPos;
     bottonRight = moveMousePos;
@@ -91,5 +85,4 @@ void SimpleWindow::setSizeWidget(QPoint moveMousePos)
     QRect initRect(topLeft,bottonRight);
     //qDebug()<<"x: "<< mStartDragPos.x()<<"y: "<< mStartDragPos.y() <<"x: "<<globalMousePos.x() <<"y: "<<globalMousePos.y();
     setGeometry(initRect);
-    setWindowFlags(flags);
 }

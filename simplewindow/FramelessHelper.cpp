@@ -122,9 +122,7 @@ WidgetData::WidgetData( FramelessHelperImpl* _d, QWidget* topLevelWidget )
   mWidget = topLevelWidget;
   mLeftButtonPressed = false;
   mCursorShapeChanged = false;
-  mWidget->setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
-  mWidget->show();
-  mWidget->setWindowOpacity(0.5);
+
   mWindowFlags = mWidget->windowFlags();
 
   //---from Qt docs of setWindowFlags()----
@@ -136,7 +134,7 @@ WidgetData::WidgetData( FramelessHelperImpl* _d, QWidget* topLevelWidget )
   bool visible = mWidget->isVisible();
 
   mWidget->setMouseTracking( true );
-  mWidget->setWindowFlags( Qt::CustomizeWindowHint|Qt::FramelessWindowHint );
+  mWidget->setWindowFlags( Qt::CustomizeWindowHint|Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
   //Bug fix, mouse move events does not propagate from child widgets.
   //so need the hover events.
   mWidget->setAttribute( Qt::WA_Hover );

@@ -10,23 +10,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    //delete win;
     delete ui;
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    sWinVec.push_back(QSharedPointer<SimpleWindow>(new SimpleWindow));
-  //  win = new SimpleWindow();
+    if(win.use_count())
+        win.reset();
+
+    win = std::make_shared<SimpleWindow>();
+    win->show();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-    //win->close();
-    for(int i = 0; i< sWinVec.size(); i++)
-    {
-        sWinVec[i].data()->close();
-        sWinVec[i].clear();
-    }
-    sWinVec.clear();
-    event->accept();
+    win->close();
 }

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QVector>
 #include "simplewindow.h"
+#include <memory>
 
 namespace Ui {
 class MainWindow;
@@ -16,17 +17,15 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
+
     void closeEvent(QCloseEvent *event);
 
 private slots:
     void on_pushButton_clicked();
 
 private:
-    QVector<QSharedPointer<SimpleWindow> > sWinVec;
-
     Ui::MainWindow *ui;
-    //SimpleWindow *win;
-
+    std::shared_ptr<SimpleWindow> win;
 };
 
 #endif // MAINWINDOW_H
