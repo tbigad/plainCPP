@@ -1,5 +1,6 @@
 #include "simplewindow.h"
 #include "fullscreenhelper.h"
+
 #include <QDebug>
 
 SimpleWindow::SimpleWindow(QWidget *parent)
@@ -82,7 +83,18 @@ void SimpleWindow::setSizeWidget(QPoint moveMousePos)
         topLeft.setY(bottonRight.y());
         bottonRight.setY(mStartDragPos.y());
     }
+
     QRect initRect(topLeft,bottonRight);
-    //qDebug()<<"x: "<< mStartDragPos.x()<<"y: "<< mStartDragPos.y() <<"x: "<<globalMousePos.x() <<"y: "<<globalMousePos.y();
     setGeometry(initRect);
+    raise();
+}
+
+void SimpleWindow::paintEvent(QPaintEvent *event)
+{
+    QPainter paint(this);
+    QPen pen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+    paint.setPen(pen);
+    QRectF rec(rect().topLeft(),size());
+    paint.setOpacity(2);
+    paint.drawRect(rec);
 }

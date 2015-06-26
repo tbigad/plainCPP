@@ -19,6 +19,7 @@ void MainWindow::on_pushButton_clicked()
         win.reset();
 
     win = std::make_shared<SimpleWindow>();
+
     win->show();
 }
 
