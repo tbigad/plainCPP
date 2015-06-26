@@ -7,10 +7,7 @@ SimpleWindow::SimpleWindow(QWidget *parent)
     : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint),
       mFrameless(new FramelessHelper)
 {
-    FullScreenHelper::MaximizeOnVirtualScreen(this);
-    setWindowOpacity(0.05);
-    setCursor(Qt::CrossCursor);
-    widgetCreated = false;
+    setWidget();
 }
 
 SimpleWindow::~SimpleWindow()
@@ -19,12 +16,14 @@ SimpleWindow::~SimpleWindow()
 
 void SimpleWindow::mousePressEvent(QMouseEvent *event)
 {
+
+    mLeftBtnPressed = true;
     switch (event->button()) {
     case Qt::LeftButton:
-        if(widgetCreated)
+        if(widgetCreated){
             return;
+        }
         mStartDragPos = event->globalPos();
-        mLeftBtnPressed = true;
         break;
     case Qt::RightButton:
         this->close();
@@ -45,18 +44,18 @@ void SimpleWindow::mouseMoveEvent(QMouseEvent *event)
 
 void SimpleWindow::mouseReleaseEvent(QMouseEvent *event)
 {
+    mLeftBtnPressed = false;
     if(widgetCreated){
         return;
-        mLeftBtnPressed = false;
     }
 
-    if((this->size().height()< 10) && (this->size().width()< 10) )
+    if((this->size().height()< 10) && (this->size().width()< 10) && (isWidgetResizeble == false) )
     {
-        this->showMaximized();
+        setWidget();
         return;
     }
 
-    if (!(this->isFullScreen() || this->isMaximized())){
+    if (isWidgetResizeble){
         mFrameless->activateOn(this);
         mFrameless->setWidgetMovable(true);
         mFrameless->setWidgetResizable(true);
@@ -66,7 +65,7 @@ void SimpleWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void SimpleWindow::setSizeWidget(QPoint moveMousePos)
 {
-    if(widgetCreated && mLeftBtnPressed)
+    if(widgetCreated)
         return;
 
     setWindowOpacity(0.5);
@@ -97,4 +96,26 @@ void SimpleWindow::paintEvent(QPaintEvent *event)
     QRectF rec(rect().topLeft(),size());
     paint.setOpacity(2);
     paint.drawRect(rec);
+    qDebug()<< size();  
+    QString SizeStr;
+    if(!widgetCreated)
+    {
+        QTextStream(&SizeStr)<<size().width()<<"x"<<size().height();
+        paint.drawText(rec.center(),SizeStr);
+    }
+}
+
+void SimpleWindow::resizeEvent(QResizeEvent *event)
+{
+    if(mLeftBtnPressed)
+    isWidgetResizeble = true;
+}
+
+void SimpleWindow::setWidget()
+{
+    FullScreenHelper::MaximizeOnVirtualScreen(this);
+    setWindowOpacity(0.05);
+    setCursor(Qt::CrossCursor);
+    widgetCreated = false;
+    isWidgetResizeble = false;
 }

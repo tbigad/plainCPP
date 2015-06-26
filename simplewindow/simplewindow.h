@@ -22,12 +22,16 @@ private:
 
     bool mLeftBtnPressed;
     bool widgetCreated;
+    bool isWidgetResizeble;
+
+    void setWidget();
 
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void paintEvent(QPaintEvent *event);
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // SIMPLEWINDOW_H
