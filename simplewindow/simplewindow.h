@@ -24,7 +24,9 @@ private:
     bool widgetCreated;
     bool isWidgetResizeble;
 
-    void setWidget();
+    void initialConfigurationWidget();
+    void secondarySettingWidget(bool setWidgetMovable, bool setWidgetResizable);
+
 
 protected:
     void mousePressEvent(QMouseEvent *event);

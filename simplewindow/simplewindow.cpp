@@ -7,7 +7,7 @@ SimpleWindow::SimpleWindow(QWidget *parent)
     : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint),
       mFrameless(new FramelessHelper)
 {
-    setWidget();
+    initialConfigurationWidget();
 }
 
 SimpleWindow::~SimpleWindow()
@@ -49,17 +49,13 @@ void SimpleWindow::mouseReleaseEvent(QMouseEvent *event)
         return;
     }
 
-    if((this->size().height()< 10) && (this->size().width()< 10) && (isWidgetResizeble == false) )
+      if((this->size().height()< 10) || (this->size().width()< 10) || (isWidgetResizeble == false) )
     {
-        setWidget();
+        initialConfigurationWidget();
         return;
     }
-
     if (isWidgetResizeble){
-        mFrameless->activateOn(this);
-        mFrameless->setWidgetMovable(true);
-        mFrameless->setWidgetResizable(true);
-        widgetCreated = true;
+            secondarySettingWidget(true,true);
     }
 }
 
@@ -83,6 +79,7 @@ void SimpleWindow::setSizeWidget(QPoint moveMousePos)
         bottonRight.setY(mStartDragPos.y());
     }
 
+    isWidgetResizeble = true;
     QRect initRect(topLeft,bottonRight);
     setGeometry(initRect);
     raise();
@@ -96,7 +93,6 @@ void SimpleWindow::paintEvent(QPaintEvent *event)
     QRectF rec(rect().topLeft(),size());
     paint.setOpacity(2);
     paint.drawRect(rec);
-    qDebug()<< size();  
     QString SizeStr;
     if(!widgetCreated)
     {
@@ -107,15 +103,23 @@ void SimpleWindow::paintEvent(QPaintEvent *event)
 
 void SimpleWindow::resizeEvent(QResizeEvent *event)
 {
-    if(mLeftBtnPressed)
-    isWidgetResizeble = true;
+
+
 }
 
-void SimpleWindow::setWidget()
+void SimpleWindow::initialConfigurationWidget()
 {
     FullScreenHelper::MaximizeOnVirtualScreen(this);
     setWindowOpacity(0.05);
     setCursor(Qt::CrossCursor);
     widgetCreated = false;
     isWidgetResizeble = false;
+}
+
+void SimpleWindow::secondarySettingWidget(bool setWidgetMovable, bool setWidgetResizable)
+{
+    mFrameless->activateOn(this);
+    mFrameless->setWidgetMovable(setWidgetMovable);
+    mFrameless->setWidgetResizable(setWidgetResizable);
+    widgetCreated = true;
 }
