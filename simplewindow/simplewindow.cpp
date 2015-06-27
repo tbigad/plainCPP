@@ -4,7 +4,7 @@
 #include <QDebug>
 
 SimpleWindow::SimpleWindow(QWidget *parent)
-    : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint),
+    : QWidget(parent, Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::CustomizeWindowHint|Qt::NoDropShadowWindowHint),
       mFrameless(new FramelessHelper)
 {
     initialConfigurationWidget();
@@ -87,17 +87,22 @@ void SimpleWindow::setSizeWidget(QPoint moveMousePos)
 
 void SimpleWindow::paintEvent(QPaintEvent *event)
 {
+    const QPen whitePen(Qt::white, 2);
+    const QPen blackPen(Qt::black, 2);
+
     QPainter paint(this);
-    QPen pen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-    paint.setPen(pen);
+    paint.setOpacity(1);
+
+    paint.setPen(whitePen);
     QRectF rec(rect().topLeft(),size());
-    paint.setOpacity(2);
     paint.drawRect(rec);
-    QString SizeStr;
+
+    QString sizeStr;
+    paint.setPen(blackPen);
     if(!widgetCreated)
     {
-        QTextStream(&SizeStr)<<size().width()<<"x"<<size().height();
-        paint.drawText(rec.center(),SizeStr);
+        QTextStream(&sizeStr)<<size().width()<<" x "<<size().height();
+        paint.drawText(rec.center(),sizeStr);
     }
 }
 
@@ -110,7 +115,7 @@ void SimpleWindow::resizeEvent(QResizeEvent *event)
 void SimpleWindow::initialConfigurationWidget()
 {
     FullScreenHelper::MaximizeOnVirtualScreen(this);
-    setWindowOpacity(0.05);
+    setWindowOpacity(0.1);
     setCursor(Qt::CrossCursor);
     widgetCreated = false;
     isWidgetResizeble = false;
