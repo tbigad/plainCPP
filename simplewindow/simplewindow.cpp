@@ -122,4 +122,20 @@ void SimpleWindow::secondarySettingWidget(bool setWidgetMovable, bool setWidgetR
     mFrameless->setWidgetMovable(setWidgetMovable);
     mFrameless->setWidgetResizable(setWidgetResizable);
     widgetCreated = true;
+    if(chekBox)
+    {
+        panel = std::make_shared<Panel>();
+        panel.get()->show();
+    }
+}
+
+void SimpleWindow::setChekBoxState(bool chekBoxState)
+{
+    chekBox = chekBoxState;
+}
+
+void SimpleWindow::closeEvent(QCloseEvent *event)
+{
+    if(chekBox)
+    panel.get()->close();
 }
