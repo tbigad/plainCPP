@@ -181,7 +181,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			oldBitmap = SelectObject(hdcMem, hBitmap);
 
 			GetObject(hBitmap, sizeof(bitmap), &bitmap);
-			//BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 			StretchBlt(hdc, 0, 0, sx, sy, hdcMem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
 			SelectObject(hdcMem, oldBitmap);
 			DeleteDC(hdcMem);
@@ -199,7 +198,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		file.lStructSize = sizeof(OPENFILENAME);
 		file.hInstance = hInst;
-		file.lpstrFilter = _T("*.bmp");
+		file.lpstrFilter = _T("Bitmap files(*.bmp)\0*.bmp\0");
 		file.lpstrFile = name;
 		file.nMaxFile = sizeof(name)/sizeof(TCHAR);
 		file.lpstrInitialDir = _T("bmp");
