@@ -128,6 +128,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	RECT rt;
 	static TCHAR name[256] = _T("");;
 	std::string st;
+	HBITMAP hBitmap = NULL;
 
     switch (message)
     {
@@ -158,24 +159,47 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
         {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
-			LPCWSTR _fp;
-			if(file.lpstrFile !=NULL)
+			PAINTSTRUCT 	ps;
+			HDC 			hdc;
+			BITMAP 			bitmap;
+			HDC 			hdcMem;
+			HGDIOBJ 		oldBitmap;
+
+			hdc = BeginPaint(hWnd, &ps);
+			LPCTSTR _fp;
+			if (file.lpstrFile != NULL) {
 				_fp = file.lpstrFile;
-			else _fp = _T("Select file");
-			TextOut(hdc, 0, 0, _fp,_tcsclen(_fp));
+				hBitmap = (HBITMAP)LoadImage(hInst, _fp, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+			}
+			else {
+				_fp = _T("Select file");
+				TextOut(hdc, 0, 0, _fp, _tcsclen(_fp));
+				EndPaint(hWnd, &ps);
+				break;
+			}
+			hdcMem = CreateCompatibleDC(hdc);
+			oldBitmap = SelectObject(hdcMem, hBitmap);
+
+			GetObject(hBitmap, sizeof(bitmap), &bitmap);
+			//BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+			StretchBlt(hdc, 0, 0, sx, sy, hdcMem, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
+			SelectObject(hdcMem, oldBitmap);
+			DeleteDC(hdcMem);
+
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+	case WM_SIZE:
+		sx = LOWORD(lParam);
+		sy = LOWORD(lParam);
+		break;
 	case WM_CREATE:
 		file.lStructSize = sizeof(OPENFILENAME);
 		file.hInstance = hInst;
-		file.lpstrFilter = _T("*.bmp*");
+		file.lpstrFilter = _T("*.bmp");
 		file.lpstrFile = name;
 		file.nMaxFile = sizeof(name)/sizeof(TCHAR);
 		file.lpstrInitialDir = _T("bmp");
