@@ -123,9 +123,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	OPENFILENAME file;
+	static OPENFILENAME file;
 	static int sx, sy;
 	RECT rt;
+	static TCHAR name[256] = _T("");;
+	std::string st;
 
     switch (message)
     {
@@ -142,7 +144,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DestroyWindow(hWnd);
                 break;
 			case ID_OPENFILE:
+				file.lpstrTitle = _T("Open file");
+				file.Flags = OFN_READONLY;
+				if (!GetOpenFileName(&file))
+					return 1;
 
+				InvalidateRect(hWnd, NULL, 1);
 				break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
@@ -154,7 +161,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
-			LPCWSTR _fp = _T("Select file");
+			LPCWSTR _fp;
+			if(file.lpstrFile !=NULL)
+				_fp = file.lpstrFile;
+			else _fp = _T("Select file");
 			TextOut(hdc, 0, 0, _fp,_tcsclen(_fp));
             EndPaint(hWnd, &ps);
         }
@@ -165,7 +175,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_CREATE:
 		file.lStructSize = sizeof(OPENFILENAME);
 		file.hInstance = hInst;
-
+		file.lpstrFilter = _T("*.bmp*");
+		file.lpstrFile = name;
+		file.nMaxFile = sizeof(name)/sizeof(TCHAR);
+		file.lpstrInitialDir = _T("bmp");
 		break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
