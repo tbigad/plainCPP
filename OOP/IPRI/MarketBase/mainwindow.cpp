@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QString>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,23 +23,63 @@ MainWindow::~MainWindow()
 
 void MainWindow::update()
 {
-    ui->tableWidget->clear();
+    ui->listWidget->clear();
     list<shared_ptr<MarketItem> > _itemList = market->getList();
-    ui->tableWidget->setRowCount(_itemList.size());
-    ui->tableWidget->setColumnCount(3);
 
-    int i = 0;
     foreach (shared_ptr<MarketItem> item, _itemList) {
-        QString qstr = QString::fromUtf8(item->getTitle().c_str(), item->getTitle().size());
-        QTableWidgetItem* title = new QTableWidgetItem(qstr);
-        qstr = QString::number(item->getQuantity());
-        QTableWidgetItem* quantity = new QTableWidgetItem(qstr);
-        qstr = QString::number(item->getCost());
-        QTableWidgetItem* cost = new QTableWidgetItem(qstr);
-        ui->tableWidget->setItem(i,0,title);
-        ui->tableWidget->setItem(i,1,cost);
-        ui->tableWidget->setItem(i,2,quantity);
-        i++;
+        QString qstr ="Title: "+ QString::fromUtf8(item->getTitle().c_str(), item->getTitle().size());
+        qstr +=" Quantity: "+ QString::number(item->getQuantity());
+        qstr +=" Cost: "+ QString::number(item->getCost()) + '£';
+        QListWidgetItem *view = new QListWidgetItem();
+        view->setText(qstr);
+        view->setData(Qt::WhatsThisRole, item->getID());
+        ui->listWidget->insertItem(0,view);
     }
 
+}
+
+void MainWindow::on_listWidget_itemClicked(QListWidgetItem *itL)
+{
+    ui->titleEdit->clear();
+    ui->priceEdit->clear();
+    ui->quantityEdit->clear();
+
+    MarketItem item = market->itemFromID(itL->data(Qt::WhatsThisRole).toInt());
+
+    QString Title =QString::fromUtf8(item.getTitle().c_str(), item.getTitle().size());
+    QString Quantity = QString::number(item.getQuantity());
+    QString Cost = QString::number(item.getCost());
+
+    ui->titleEdit->setText(Title);
+    ui->priceEdit->setText(Cost);
+    ui->quantityEdit->setText(Quantity);
+    currentID = item.getID();
+}
+
+void MainWindow::on_addButton_pressed()
+{
+    std::string title = ui->titleEdit->text().toStdString();
+    double Quantity = ui->quantityEdit->text().toDouble();
+    int Cost = ui->priceEdit->text().toInt();
+    market->addItem(title,Cost,Quantity);
+    update();
+}
+
+void MainWindow::on_buyButton_pressed()
+{
+    if(!ui->listWidget->currentItem())
+        return;
+    market->itemFromID(currentID).buy();
+    update();
+}
+
+void MainWindow::on_editButton_pressed()
+{
+    if(currentID == 0)
+        return;
+    std::string title = ui->titleEdit->text().toStdString();
+    double Quantity = ui->quantityEdit->text().toDouble();
+    int Cost = ui->priceEdit->text().toInt();
+    market->editItem(currentID,title,Cost,Quantity);
+    update();
 }
