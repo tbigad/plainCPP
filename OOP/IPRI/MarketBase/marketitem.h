@@ -22,5 +22,6 @@ public:
     int getID() const {return _ID;}
     std::string getTitle() const {return _title;}
     double getCost() const {return _cost;}
+    int getQuantity() const {return _quantity;}
 };
 #endif // MARKETITEM_H

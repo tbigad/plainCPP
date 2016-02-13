@@ -19,6 +19,7 @@ public:
 private:
     Ui::MainWindow *ui;
     Market* market;
+    void update();
 };
 
 #endif // MAINWINDOW_H

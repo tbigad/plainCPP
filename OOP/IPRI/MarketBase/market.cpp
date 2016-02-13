@@ -43,4 +43,9 @@ int Market::indexByID(int id)
     return -1;
 }
 
+const list<shared_ptr<MarketItem> > Market::getList()
+{
+    return _itemList;
+}
+
 

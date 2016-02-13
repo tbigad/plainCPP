@@ -13,6 +13,7 @@ public:
     void addItem(string title, double cost, int quantity);
     void buyItem(shared_ptr<MarketItem> item);
     int indexByID(int id);
+    list<shared_ptr<MarketItem> > const getList();
 private:
     list<shared_ptr<MarketItem> > _itemList;
 };
