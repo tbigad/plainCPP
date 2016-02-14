@@ -11,6 +11,7 @@ class StringVector
 public:
     StringVector(){}
     StringVector(const std::string* str);
+    StringVector(const char* c);
     ~StringVector(){}
     void pushBack(const std::string* str);
     void pushFron(const std::string* str);

@@ -9,3 +9,11 @@ StringVector::StringVector(const std::string *str)
     data->nextItem=NULL;
     this->first = data;
 }
+
+StringVector::StringVector(const char *c)
+{
+    Data* data = new Data;
+    data->content=c;
+    data->nextItem=NULL;
+    this->first = data;
+}
