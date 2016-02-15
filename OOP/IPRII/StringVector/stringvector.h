@@ -14,14 +14,16 @@ public:
     StringVector(const char* c);
     ~StringVector(){}
     void pushBack(const std::string* str);
-    void pushFron(const std::string* str);
-    void clear();
-    std::string const popBack();
-    std::string const popFront();
-    std::string* const front();
-    std::string* const back();
-    size_t size(){return m_size;}
+    void pushBack(const char* c);
+    const char* popFront_C_str();
+    std::string popFront();
+    inline StringVector &operator << (const char* c)
+    {pushBack(c); return *this;}
+    const char* operator[](const int i);
+    int size();
 private:
+    Data*  lastData();
+    Data *  nextData(Data* next);
     size_t m_size;
     Data* first = NULL;
 };
