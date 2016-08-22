@@ -270,3 +270,7 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 Status API Training Shop Blog About Pricing
+
+ItsNotAbag/build-Float_double-Desktop_Qt_5_4_2_clang_64bit2-Debug/Float_double
+
+*.stash
