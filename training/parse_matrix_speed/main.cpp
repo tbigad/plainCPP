@@ -39,9 +39,9 @@ int main(int argc, char *argv[])
     v = 0;
 
     start_time =  clock();
-    for(size_t i = 0; i < SIZE; i++)
+    for(int i = 0; i < SIZE; i++)
     {
-        for(size_t j = 0; j < SIZE; j++)
+        for(int j = 0; j < SIZE; j++)
         {
             v+= arr[j][i];
         }
